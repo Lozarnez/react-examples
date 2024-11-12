@@ -2,10 +2,20 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import useAsync from '../../../hooks/useAsync';
 import { createProduct } from '../../../server/products';
+import { useEffect } from 'react';
 
 const CreateProductForm = () => {
-  const { register, handleSubmit, formState: { errors } } = useForm();
+  const { register, handleSubmit, getValues, watch, formState: { errors } } = useForm();
   const { loading, error, value, execute } = useAsync(createProduct);
+  const cField = watch('rating')
+
+  useEffect(() => {
+    if (cField) console.log('Country', cField)
+
+    return () => {
+      console.log('End')
+    }
+  }, [cField])
 
   return (
     <form onSubmit={handleSubmit(execute)}>

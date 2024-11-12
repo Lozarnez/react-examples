@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { getProducts } from '../../../server/products';
 import useAsync from '../../../hooks/useAsync';
+import { useCallback } from 'react';
 
 const Products = () => {
   const navigate = useNavigate();
@@ -19,9 +20,9 @@ const Products = () => {
   const handleNextPage = () => setPage(prevPage => prevPage + 1);
   const handlePreviousPage = () => setPage(prevPage => Math.max(prevPage - 1, 1));
 
-  const handleCreateProduct = () => {
+  const handleCreateProduct = useCallback(() => {
     navigate('crear')
-  }
+  }, [])
 
   const handleViewDetails = (id) => {
     navigate(`/detalle/${id}`);
